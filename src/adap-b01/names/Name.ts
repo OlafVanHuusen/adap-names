@@ -20,7 +20,8 @@ export class Name {
 
     /** Expects that all Name components are properly masked */
     constructor(other: string[], delimiter?: string) {
-        throw new Error("needs implementation");
+        //Comment for git testing
+        throw new Error("needs implementation??");
     }
 
     /**

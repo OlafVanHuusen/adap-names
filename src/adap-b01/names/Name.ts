@@ -18,7 +18,7 @@ export class Name {
     private delimiter: string = DEFAULT_DELIMITER;
     private components: string[] = [];
 
-    /** Expects that all Name components are properly masked */
+    // @methodtype initialization-method
     constructor(other: string[], delimiter?: string) {
         this.components = other;
         if (delimiter) {
@@ -26,10 +26,12 @@ export class Name {
         }
     }
 
+    // @methodtype conversion-method
     public asNameString(delimiter: string = this.delimiter): string {
         return this.components.join(delimiter);
     }
 
+    // @methodtype get-method
     public getComponent(i: number): string {
         if(i < 0 || i >= this.components.length) {
             throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
@@ -37,7 +39,7 @@ export class Name {
         return this.components[i];
     }
 
-    /** Expects that new Name component c is properly masked */
+    // @methodtype set-method
     public setComponent(i: number, c: string): void {
         if(i < 0 || i >= this.components.length) {
             throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
@@ -45,12 +47,13 @@ export class Name {
         this.components[i] = c;
     }
 
+    // @methodtype get-method
     //getNumberOfComponents
     public getNoComponents(): number {
         return this.components.length;
     }
 
-    /** Expects that new Name component c is properly masked */
+    // @methodtype command-method
     public insert(i: number, c: string): void {
         if(i < 0 || i >= this.components.length) {
             throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
@@ -58,11 +61,12 @@ export class Name {
         this.components.splice(i, 0, c);
     }
 
-    /** Expects that new Name component c is properly masked */
+    // @methodtype command-method
     public append(c: string): void {
         this.components.push(c);
     }
 
+    // @methodtype command-method
     public remove(i: number): void {
         if(i < 0 || i >= this.components.length) {
             throw new Error("Index: " + i + " out of bounds for length " + this.components.length);

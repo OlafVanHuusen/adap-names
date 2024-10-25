@@ -20,53 +20,54 @@ export class Name {
 
     /** Expects that all Name components are properly masked */
     constructor(other: string[], delimiter?: string) {
-        throw new Error("needs implementation or deletion");
+        this.components = other;
+        if (delimiter) {
+            this.delimiter = delimiter;
+        }
     }
 
-    /**
-     * Returns a human-readable representation of the Name instance using user-set control characters
-     * Control characters are not escaped (creating a human-readable string)
-     * Users can vary the delimiter character to be used
-     */
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    /** 
-     * Returns a machine-readable representation of Name instance using default control characters
-     * Machine-readable means that from a data string, a Name can be parsed back in
-     * The control characters in the data string are the default characters
-     */
-    public asDataString(): string {
-        throw new Error("needs implementation or deletion");
+    public asNameString(delimiter: string = this.delimiter): string {
+        return this.components.join(delimiter);
     }
 
     public getComponent(i: number): string {
-        throw new Error("needs implementation or deletion");
+        if(i < 0 || i >= this.components.length) {
+            throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
+        }
+        return this.components[i];
     }
 
     /** Expects that new Name component c is properly masked */
     public setComponent(i: number, c: string): void {
-        throw new Error("needs implementation or deletion");
+        if(i < 0 || i >= this.components.length) {
+            throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
+        }
+        this.components[i] = c;
     }
 
-     /** Returns number of components in Name instance */
-     public getNoComponents(): number {
-        throw new Error("needs implementation or deletion");
+    //getNumberOfComponents
+    public getNoComponents(): number {
+        return this.components.length;
     }
 
     /** Expects that new Name component c is properly masked */
     public insert(i: number, c: string): void {
-        throw new Error("needs implementation or deletion");
+        if(i < 0 || i >= this.components.length) {
+            throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
+        }
+        this.components.splice(i, 0, c);
     }
 
     /** Expects that new Name component c is properly masked */
     public append(c: string): void {
-        throw new Error("needs implementation or deletion");
+        this.components.push(c);
     }
 
     public remove(i: number): void {
-        throw new Error("needs implementation or deletion");
+        if(i < 0 || i >= this.components.length) {
+            throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
+        }
+        this.components.splice(i, 1);
     }
 
 }

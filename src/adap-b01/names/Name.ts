@@ -7,36 +7,51 @@ export class Name {
     private delimiter: string = this.DEFAULT_DELIMITER;
 
     constructor(other: string[], delimiter?: string) {
-        //Comment for git testing
-        throw new Error("needs implementation??");
+        this.components = other;
+        if (delimiter) {
+            this.delimiter = delimiter;
+        }
     }
 
     public asNameString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
+        return this.components.join(delimiter);
     }
 
     public getComponent(i: number): string {
-        throw new Error("needs implementation");
+        if(i < 0 || i >= this.components.length) {
+            throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
+        }
+        return this.components[i];
     }
 
     public setComponent(i: number, c: string): void {
-        throw new Error("needs implementation");
+        if(i < 0 || i >= this.components.length) {
+            throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
+        }
+        this.components[i] = c;
     }
 
+    //getNumberOfComponents
     public getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.components.length;
     }
 
     public insert(i: number, c: string): void {
-        throw new Error("needs implementation");
+        if(i < 0 || i >= this.components.length) {
+            throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
+        }
+        this.components.splice(i, 0, c);
     }
 
     public append(c: string): void {
-        throw new Error("needs implementation");
+        this.components.push(c);
     }
 
     public remove(i: number): void {
-        throw new Error("needs implementation");
+        if(i < 0 || i >= this.components.length) {
+            throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
+        }
+        this.components.splice(i, 1);
     }
 
 }

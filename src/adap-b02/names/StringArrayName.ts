@@ -1,10 +1,9 @@
-import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
-import { Name } from "./Name";
+import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
 
 export class StringArrayName implements Name {
 
-    protected delimiter: string = DEFAULT_DELIMITER;
     protected components: string[] = [];
+    protected delimiter: string = DEFAULT_DELIMITER;
 
     constructor(other: string[], delimiter?: string) {
         throw new Error("needs implementation or deletion");

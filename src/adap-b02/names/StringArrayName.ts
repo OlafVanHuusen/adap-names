@@ -56,7 +56,7 @@ export class StringArrayName implements Name {
 
     // @methodtype command-method
     public insert(i: number, c: string): void {
-        if(i < 0 || i >= this.components.length) {
+        if(i < 0 || i > this.components.length) {
             throw new Error("Index: " + i + " out of bounds for length " + this.components.length);
         }
         this.components.splice(i, 0, c);

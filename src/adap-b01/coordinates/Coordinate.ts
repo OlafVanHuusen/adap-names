@@ -9,7 +9,7 @@ export class Coordinate {
     }
 
     // @methodtype initialization-method
-    public static getOrigin(): Coordinate {
+    public static createOrigin(): Coordinate {
         return new Coordinate(0, 0);
     }
 

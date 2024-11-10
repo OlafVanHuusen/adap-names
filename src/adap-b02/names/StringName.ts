@@ -13,8 +13,8 @@ export class StringName implements Name {
     constructor(other: string, delimiter?: string) {
         if(delimiter !== undefined) {
             this.delimiter = delimiter;
-            this.regex = new RegExp("(?<!\\\\)\\" + this.delimiter, 'g');
         }
+        this.regex = new RegExp("(?<!\\\\)\\" + this.delimiter, 'g');
         this.name = other;
         this.length = this.name.split(this.delimiter).length;
     }
@@ -22,9 +22,9 @@ export class StringName implements Name {
     // @methodtype conversion-method
     public asString(delimiter: string = this.delimiter): string {
         if(delimiter === this.delimiter) {
-            return this.name;
+            return this.name.replace(ESCAPE_CHARACTER + this.delimiter, this.delimiter);
         }else {
-            return this.name.replace(ESCAPE_CHARACTER + this.delimiter, delimiter);
+            return this.name.replace(this.regex, delimiter);
         }
     }
 
@@ -62,24 +62,24 @@ export class StringName implements Name {
             throw new Error("Index: " + n + " out of bounds for length " + this.length);
         }
         const nameArray = this.name.split(this.regex);
-        nameArray[n] = c.replace(this.delimiter, ESCAPE_CHARACTER + this.delimiter);
+        nameArray[n] = c.replace(this.regex, ESCAPE_CHARACTER + this.delimiter);
         this.name = nameArray.join(this.delimiter);
     }
 
     // @methodtype command-method
     public insert(n: number, c: string): void {
-        if(n < 0 || n >= this.length) {
+        if(n < 0 || n > this.length) {
             throw new Error("Index: " + n + " out of bounds for length " + this.length);
         }
         const nameArray = this.name.split(this.regex);
-        nameArray.splice(n, 0, c.replace(this.delimiter, ESCAPE_CHARACTER + this.delimiter));
+        nameArray.splice(n, 0, c.replace(this.regex, ESCAPE_CHARACTER + this.delimiter));
         this.name = nameArray.join(this.delimiter);
         this.length++;
     }
 
     // @methodtype command-method
     public append(c: string): void {
-        this.name += this.delimiter + c.replace(this.delimiter, ESCAPE_CHARACTER + this.delimiter);
+        this.name += this.delimiter + c.replace(this.regex, ESCAPE_CHARACTER + this.delimiter);
         this.length++;
     }
 
@@ -101,7 +101,7 @@ export class StringName implements Name {
         }
         const temp = this.getNoComponents() + other.getNoComponents();
         for(let i = 0; i < other.getNoComponents(); i++) {
-            this.append(other.getComponent(i).replace(this.delimiter, ESCAPE_CHARACTER + this.delimiter));
+            this.append(other.getComponent(i).replace(this.regex, ESCAPE_CHARACTER + this.delimiter));
         }
         this.length = temp;
     }

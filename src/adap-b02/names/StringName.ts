@@ -16,7 +16,7 @@ export class StringName implements Name {
         }
         this.regex = new RegExp("(?<!\\\\)\\" + this.delimiter, 'g');
         this.name = other;
-        this.length = this.name.split(this.delimiter).length;
+        this.length = this.name.split(this.regex).length;
     }
 
     // @methodtype conversion-method
@@ -24,7 +24,7 @@ export class StringName implements Name {
         if(delimiter === this.delimiter) {
             return this.name.replace(ESCAPE_CHARACTER + this.delimiter, this.delimiter);
         }else {
-            return this.name.replace(this.regex, delimiter);
+            return this.name.replace(this.regex, delimiter).replace(ESCAPE_CHARACTER + this.delimiter, this.delimiter);
         }
     }
 

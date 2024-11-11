@@ -1,8 +1,8 @@
 import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
+//implements Name is missing
+export abstract class AbstractName {
 
-export abstract class AbstractName implements Name {
-
-    protected delimiter: string = DEFAULT_DELIMITER;
+    /**protected delimiter: string = DEFAULT_DELIMITER;
 
     constructor(delimiter: string = DEFAULT_DELIMITER) {
         throw new Error("needs implementation");
@@ -51,6 +51,6 @@ export abstract class AbstractName implements Name {
 
     public concat(other: Name): void {
         throw new Error("needs implementation");
-    }
+    }**/
 
 }

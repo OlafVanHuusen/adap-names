@@ -7,6 +7,7 @@ export class StringName extends AbstractName {
     protected length: number = 0;
 
     constructor(other: string, delimiter?: string) {
+        super();
         throw new Error("needs implementation");
     }
 

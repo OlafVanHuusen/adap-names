@@ -6,6 +6,7 @@ export class StringArrayName extends AbstractName {
     protected components: string[] = [];
 
     constructor(other: string[], delimiter?: string) {
+        super();
         throw new Error("needs implementation");
     }
 

@@ -57,13 +57,6 @@ export abstract class AbstractName implements Name{
     }
 
     public clone(): Name {
-        /**const cloned = Object.create(Object.getPrototypeOf(this));
-        cloned.delimiter = this.delimiter;
-        cloned.regex = this.regex;
-        for (let i = 0; i < this.getNoComponents(); i++) {
-            cloned.append(this.getComponent(i));
-        }
-        return cloned;**/
         return Object.create(this);
     }
 

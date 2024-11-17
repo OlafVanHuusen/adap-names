@@ -4,8 +4,6 @@ import { AbstractName } from "./AbstractName";
 
 export class StringName extends AbstractName {
 
-    protected delimiter: string = DEFAULT_DELIMITER;
-
     protected name: string = "";
     protected length: number = 0;
 

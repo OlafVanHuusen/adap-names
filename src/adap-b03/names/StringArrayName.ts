@@ -4,7 +4,6 @@ import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
 export class StringArrayName extends AbstractName {
 
     protected components: string[] = [];
-    protected delimiter: string = DEFAULT_DELIMITER;
 
     // @methodtype initialization-method
     constructor(other: string[], delimiter?: string) {

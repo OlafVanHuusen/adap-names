@@ -15,7 +15,10 @@ export abstract class AbstractName implements Name{
     public asString(delimiter: string = this.delimiter): string {
         let result = "";
         for(let i = 0; i < this.getNoComponents(); i++) {
-            result += this.getComponent(i).replace(ESCAPE_CHARACTER + this.delimiter, this.delimiter);
+            //result += this.getComponent(i).replace(ESCAPE_CHARACTER + this.delimiter, this.delimiter);
+            let a = this.getComponent(i);
+            let b = a.replaceAll(ESCAPE_CHARACTER + this.delimiter, this.delimiter);
+            result += b;
             if(i < this.getNoComponents() - 1) {
                 result += delimiter;
             }
@@ -54,13 +57,14 @@ export abstract class AbstractName implements Name{
     }
 
     public clone(): Name {
-        const cloned = Object.create(Object.getPrototypeOf(this));
+        /**const cloned = Object.create(Object.getPrototypeOf(this));
         cloned.delimiter = this.delimiter;
         cloned.regex = this.regex;
         for (let i = 0; i < this.getNoComponents(); i++) {
             cloned.append(this.getComponent(i));
         }
-        return cloned;
+        return cloned;**/
+        return Object.create(this);
     }
 
     public isEmpty(): boolean {

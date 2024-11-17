@@ -5,8 +5,6 @@ import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
 
 export class StringName extends AbstractName {
 
-    protected delimiter: string = DEFAULT_DELIMITER;
-
     protected name: string = "";
     protected length: number = 0;
 

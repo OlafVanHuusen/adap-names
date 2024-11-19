@@ -1,75 +1,111 @@
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
+import { IllegalArgumentException } from "../common/IllegalArgumentException";
+import { MethodFailedException } from "../common/MethodFailedException";
 
 export class StringName extends AbstractName {
 
     protected name: string = "";
-    protected noComponents: number = 0;
+    protected length: number = 0;
 
+    // @methodtype initialization-method
     constructor(other: string, delimiter?: string) {
-        super();
-        throw new Error("needs implementation");
+        super(delimiter);
+        IllegalArgumentException.assertIsNotNullOrUndefined(other);
+        this.name = other;
+        this.length = this.name.split(this.regex).length;
+        this.assertCorrectEscapedName();
     }
 
-    public clone(): Name {
-        throw new Error("needs implementation");
-    }
-
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
-    }
-
-    public toString(): string {
-        throw new Error("needs implementation");
-    }
-
-    public asDataString(): string {
-        throw new Error("needs implementation");
-    }
-
-    public isEqual(other: Name): boolean {
-        throw new Error("needs implementation");
-    }
-
-    public getHashCode(): number {
-        throw new Error("needs implementation");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation");
-    }
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
-    }
-
+    // @methodtype get-method
     public getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.length;
     }
 
-    public getComponent(i: number): string {
-        throw new Error("needs implementation");
+    // @methodtype get-method
+    public getComponent(x: number): string {
+        IllegalArgumentException.assertIsNotNullOrUndefined(x);
+        this.assertValidComponentNumber(x);
+        return this.name.split(this.regex)[x];
     }
 
-    public setComponent(i: number, c: string) {
-        throw new Error("needs implementation");
+    // @methodtype set-method
+    public setComponent(n: number, c: string): void {
+        IllegalArgumentException.assertIsNotNullOrUndefined(n);
+        IllegalArgumentException.assertIsNotNullOrUndefined(c);
+        this.assertCorrectEscapedString(c);
+        this.assertValidComponentNumber(n);
+
+        const nameArray = this.name.split(this.regex);
+        nameArray[n] = c.replaceAll(this.regex, ESCAPE_CHARACTER + this.delimiter);
+        this.name = nameArray.join(this.delimiter);
+
+        this.assertCorrectEscapedName();
+        this.assertComponentAtPostition(c, n);
+        this.assertLengthEqualsNumberOfComponents();
     }
 
-    public insert(i: number, c: string) {
-        throw new Error("needs implementation");
+    // @methodtype command-method
+    public insert(n: number, c: string): void {
+        IllegalArgumentException.assertIsNotNullOrUndefined(n);
+        IllegalArgumentException.assertIsNotNullOrUndefined(c);
+        this.assertCorrectEscapedString(c);
+        this.assertValidComponentNumber(n, true);
+
+        const nameArray = this.name.split(this.regex);
+        nameArray.splice(n, 0, c.replace(this.regex, ESCAPE_CHARACTER + this.delimiter));
+        this.name = nameArray.join(this.delimiter);
+        this.length++;
+
+        this.assertCorrectEscapedName();
+        this.assertComponentAtPostition(c, n);
+        this.assertLengthEqualsNumberOfComponents();
     }
 
-    public append(c: string) {
-        throw new Error("needs implementation");
+    // @methodtype command-method
+    public append(c: string): void {
+        IllegalArgumentException.assertIsNotNullOrUndefined(c);
+        this.assertCorrectEscapedString(c);
+
+        this.name += this.delimiter + c.replace(this.regex, ESCAPE_CHARACTER + this.delimiter);
+        this.length++;
+
+        this.assertCorrectEscapedName();
+        this.assertLengthEqualsNumberOfComponents();
+        this.assertComponentAtPostition(c, this.getNoComponents() - 1);
     }
 
-    public remove(i: number) {
-        throw new Error("needs implementation");
+    // @methodtype command-method
+    public remove(n: number): void {
+        IllegalArgumentException.assertIsNotNullOrUndefined(n);
+        this.assertValidComponentNumber(n);
+
+        const nameArray = this.name.split(this.regex);
+        nameArray.splice(n, 1);
+        this.name = nameArray.join(this.delimiter);
+        this.length--;
+
+        this.assertCorrectEscapedName();
+        this.assertLengthEqualsNumberOfComponents();
     }
 
-    public concat(other: Name): void {
-        throw new Error("needs implementation");
+    // @methodtype helper-method
+    private assertValidComponentNumber(n: number, insert: boolean = false): void {
+        if(insert){
+            if(n < 0 || n > this.length) {
+                throw new IllegalArgumentException("Index: " + n + " out of bounds for length " + this.length);
+            }
+        } else {
+            if(n < 0 || n >= this.length) {
+                throw new IllegalArgumentException("Index: " + n + " out of bounds for length " + this.length);
+            }
+        }
     }
 
+    private assertLengthEqualsNumberOfComponents(): void {
+        if(this.length !== this.getNoComponents()) {
+            throw new MethodFailedException("Length of name does not match number of components");
+        }
+    }
 }

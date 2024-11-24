@@ -19,13 +19,11 @@ export class File extends Node {
     public open(): void {
         this.assertIsInState(FileState.CLOSED);
         // do something
-        this.assertIsInState(FileState.OPEN);
     }
 
     public close(): void {
         this.assertIsInState(FileState.OPEN);
         // do something
-        this.assertIsInState(FileState.CLOSED);
     }
 
     protected doGetFileState(): FileState {

@@ -1,3 +1,5 @@
+import { IllegalArgumentException } from "../common/IllegalArgumentException";
+import { InvalidStateException } from "../common/InvalidStateException";
 import { Name } from "../names/Name";
 import { Directory } from "./Directory";
 
@@ -7,6 +9,9 @@ export class Node {
     protected parentNode: Directory;
 
     constructor(bn: string, pn: Directory) {
+        IllegalArgumentException.assertIsNotNullOrUndefined(bn);
+        IllegalArgumentException.assertIsNotNullOrUndefined(pn);
+        this.assertValidBaseName(bn);
         this.doSetBaseName(bn);
         this.parentNode = pn; // why oh why do I have to set this
         this.initialize(pn);
@@ -18,6 +23,7 @@ export class Node {
     }
 
     public move(to: Directory): void {
+        IllegalArgumentException.assertIsNotNullOrUndefined(to);
         this.parentNode.remove(this);
         to.add(this);
         this.parentNode = to;
@@ -38,10 +44,13 @@ export class Node {
     }
 
     public rename(bn: string): void {
+        this.assertValidBaseName(bn);
+        IllegalArgumentException.assertIsNotNullOrUndefined(bn);
         this.doSetBaseName(bn);
     }
 
     protected doSetBaseName(bn: string): void {
+        this.assertValidBaseName(bn);
         this.baseName = bn;
     }
 
@@ -49,4 +58,11 @@ export class Node {
         return this.parentNode;
     }
 
+    protected assertHasValidBaseName(): void {
+        InvalidStateException.assertCondition(this.baseName.includes('/'), "Base name contains invalid /");
+    }
+
+    protected assertValidBaseName(bn: string): void {
+        IllegalArgumentException.assertCondition(bn.includes('/'), "Base name is empty");
+    }
 }

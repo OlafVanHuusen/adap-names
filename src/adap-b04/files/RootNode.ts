@@ -1,3 +1,4 @@
+import { InvalidStateException } from "../common/InvalidStateException";
 import { Name } from "../names/Name";
 import { StringName } from "../names/StringName";
 import { Directory } from "./Directory";
@@ -21,10 +22,15 @@ export class RootNode extends Directory {
 
     public move(to: Directory): void {
         // null operation
+        this.assertSelfparent();
     }
 
     protected doSetBaseName(bn: string): void {
         // null operation
+        this.assertSelfparent();
     }
 
+    protected assertSelfparent(): void {
+        InvalidStateException.assertCondition(this === this.parentNode, "RootNode is not self parent");
+    }
 }

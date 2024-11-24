@@ -1,5 +1,6 @@
 import { Node } from "./Node";
 import { Directory } from "./Directory";
+import { InvalidStateException } from "../common/InvalidStateException";
 
 enum FileState {
     OPEN,
@@ -16,15 +17,25 @@ export class File extends Node {
     }
 
     public open(): void {
+        this.assertIsInState(FileState.CLOSED);
         // do something
+        this.assertIsInState(FileState.OPEN);
     }
 
     public close(): void {
+        this.assertIsInState(FileState.OPEN);
         // do something
+        this.assertIsInState(FileState.CLOSED);
     }
 
     protected doGetFileState(): FileState {
         return this.state;
+    }
+
+    protected assertIsInState(state: FileState): void {
+        if(state !== this.doGetFileState()) {
+            throw new InvalidStateException("File is not in state " + state);
+        }
     }
 
 }

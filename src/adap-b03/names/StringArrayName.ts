@@ -1,7 +1,6 @@
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
-import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
 
 export class StringArrayName extends AbstractName {
 

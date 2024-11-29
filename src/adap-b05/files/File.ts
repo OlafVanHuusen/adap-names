@@ -15,7 +15,6 @@ export class File extends Node {
     constructor(baseName: string, parent: Directory) {
         super(baseName, parent);
     }
-
     public open(): void {
         // do something
     }

@@ -13,6 +13,22 @@ export class Link extends Node {
         }
     }
 
+    public findNodesHelper(bn: string): Set<Node> {
+        const result: Set<Node> = new Set<Node>();
+
+        if (this.baseName === bn) {
+            result.add(this);
+        }
+
+        if (this.targetNode != null) {
+            for (let n of this.targetNode.findNodes(bn)) {
+                result.add(n);
+            }
+        }
+
+        return result;
+    }
+
     public getTargetNode(): Node | null {
         return this.targetNode;
     }

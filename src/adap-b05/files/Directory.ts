@@ -8,6 +8,19 @@ export class Directory extends Node {
         super(bn, pn);
     }
 
+    public findNodesHelper(bn: string): Set<Node> {
+        let result: Set<Node> = new Set<Node>();
+        if(this.baseName === bn) {
+            result.add(this);
+        }
+        for (let c of this.childNodes) {
+            for(let n of c.findNodes(bn)) {
+                result.add(n);
+            }
+        }
+        return result;
+    }
+
     public add(cn: Node): void {
         this.childNodes.add(cn);
     }

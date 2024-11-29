@@ -1,6 +1,7 @@
 import { ExceptionType, AssertionDispatcher } from "../common/AssertionDispatcher";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { InvalidStateException } from "../common/InvalidStateException";
+import { ServiceFailureException } from "../common/ServiceFailureException";
 
 import { Name } from "../names/Name";
 import { Directory } from "./Directory";
@@ -38,6 +39,7 @@ export class Node {
     }
 
     protected doGetBaseName(): string {
+        this.assertClassInvariants();
         return this.baseName;
     }
 
@@ -58,11 +60,32 @@ export class Node {
      * @param bn basename of node being searched for
      */
     public findNodes(bn: string): Set<Node> {
-        throw new Error("needs implementation or deletion");
+        try{
+            return this.findNodesHelper(bn);
+        }catch(ex) {
+            if(ex instanceof InvalidStateException) {
+                throw new ServiceFailureException("findNodes failed", ex);
+            }else{
+                throw ex;
+            }
+        }
+        return new Set<Node>();
+    }
+
+    /**
+     * Returns all nodes in the tree that match bn
+     * @param bn basename of node being searched for
+     */
+    public findNodesHelper(bn: string): Set<Node> {
+        if(this.doGetBaseName() === bn) {
+            return new Set([this]);
+        }else {
+            return new Set();
+        }
     }
 
     protected assertClassInvariants(): void {
-        const bn: string = this.doGetBaseName();
+        const bn: string = this.baseName;
         this.assertIsValidBaseName(bn, ExceptionType.CLASS_INVARIANT);
     }
 

@@ -11,13 +11,12 @@ export class StringArrayName extends AbstractName {
     protected components: string[] = [];
 
     // @methodtype initialization-method
-    constructor(other: string[], delimiter?: string) {
+    constructor(source: string[], delimiter?: string) {
         super(delimiter);
-        IllegalArgumentException.assertIsNotNullOrUndefined(other);
-        for(let i = 0; i < other.length; i++) {
-            this.assertCorrectEscapedString(other[i]);
+        for(let i = 0; i < source.length; i++) {
+            this.assertCorrectEscapedString(source[i]);
         }
-        this.components = other;
+        this.components = source;
         this.assertCorrectEscapedName();
     }
 

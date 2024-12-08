@@ -10,12 +10,12 @@ export class StringName implements Name {
     protected regex: RegExp = new RegExp("(?<!\\\\)\\" + ".", 'g');
 
     // @methodtype initialization-method
-    constructor(other: string, delimiter?: string) {
+    constructor(source: string, delimiter?: string) {
         if(delimiter !== undefined) {
             this.delimiter = delimiter;
         }
         this.regex = new RegExp("(?<!\\\\)\\" + this.delimiter, 'g');
-        this.name = other;
+        this.name = source;
         this.length = this.name.split(this.regex).length;
     }
 

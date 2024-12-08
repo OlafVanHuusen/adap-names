@@ -10,10 +10,9 @@ export class StringName extends AbstractName {
     protected length: number = 0;
 
     // @methodtype initialization-method
-    constructor(other: string, delimiter?: string) {
+    constructor(source: string, delimiter?: string) {
         super(delimiter);
-        IllegalArgumentException.assertIsNotNullOrUndefined(other);
-        this.name = other;
+        this.name = source;
         this.length = this.name.split(this.regex).length;
         this.assertCorrectEscapedName();
     }
@@ -25,15 +24,12 @@ export class StringName extends AbstractName {
 
     // @methodtype get-method
     public getComponent(x: number): string {
-        IllegalArgumentException.assertIsNotNullOrUndefined(x);
         this.assertValidComponentNumber(x);
         return this.name.split(this.regex)[x];
     }
 
     // @methodtype set-method
     public setComponent(n: number, c: string): void {
-        IllegalArgumentException.assertIsNotNullOrUndefined(n);
-        IllegalArgumentException.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
         this.assertValidComponentNumber(n);
 
@@ -48,8 +44,6 @@ export class StringName extends AbstractName {
 
     // @methodtype command-method
     public insert(n: number, c: string): void {
-        IllegalArgumentException.assertIsNotNullOrUndefined(n);
-        IllegalArgumentException.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
         this.assertValidComponentNumber(n, true);
 
@@ -65,7 +59,6 @@ export class StringName extends AbstractName {
 
     // @methodtype command-method
     public append(c: string): void {
-        IllegalArgumentException.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
 
         this.name += this.delimiter + c.replace(this.regex, ESCAPE_CHARACTER + this.delimiter);
@@ -78,7 +71,6 @@ export class StringName extends AbstractName {
 
     // @methodtype command-method
     public remove(n: number): void {
-        IllegalArgumentException.assertIsNotNullOrUndefined(n);
         this.assertValidComponentNumber(n);
 
         const nameArray = this.name.split(this.regex);

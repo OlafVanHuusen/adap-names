@@ -8,9 +8,9 @@ export class StringName extends AbstractName {
     protected length: number = 0;
 
     // @methodtype initialization-method
-    constructor(other: string, delimiter?: string) {
+    constructor(source: string, delimiter?: string) {
         super(delimiter);
-        this.name = other;
+        this.name = source;
         this.length = this.name.split(this.regex).length;
     }
 

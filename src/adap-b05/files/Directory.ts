@@ -8,6 +8,7 @@ export class Directory extends Node {
         super(bn, pn);
     }
 
+
     public findNodesHelper(bn: string): Set<Node> {
         let result: Set<Node> = new Set<Node>();
         if(this.baseName === bn) {
@@ -21,11 +22,15 @@ export class Directory extends Node {
         return result;
     }
 
-    public add(cn: Node): void {
+    public hasChildNode(cn: Node): boolean {
+        return this.childNodes.has(cn);
+    }
+
+    public addChildNode(cn: Node): void {
         this.childNodes.add(cn);
     }
 
-    public remove(cn: Node): void {
+    public removeChildNode(cn: Node): void {
         this.childNodes.delete(cn); // Yikes! Should have been called remove
     }
 

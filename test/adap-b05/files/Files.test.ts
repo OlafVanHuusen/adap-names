@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
 
+import { Exception } from "../../../src/adap-b05/common/Exception";
+import { InvalidStateException } from "../../../src/adap-b05/common/InvalidStateException";
+import { ServiceFailureException } from "../../../src/adap-b05/common/ServiceFailureException";
+
 import { StringName } from "../../../src/adap-b05/names/StringName";
 
 import { Node } from "../../../src/adap-b05/files/Node";
@@ -32,9 +36,15 @@ function createFileSystem(): RootNode {
 
 describe("Basic naming test", () => {
   it("test name checking", () => {
+<<<<<<< HEAD
      let fs: RootNode = createFileSystem();
      let ls: Node = [...fs.findNodes("ls")][0];
      expect(ls.getFullName().isEqual(new StringName("/usr/bin/ls", '/')));
+=======
+    let fs: RootNode = createFileSystem();
+    // let ls: Node = [...fs.findNodes("ls")][0];
+    // expect(ls.getFullName().asString()).toBe(new StringName("/usr/bin/ls", '/'));
+>>>>>>> upstream/main
   });
 });
 
@@ -59,6 +69,7 @@ function createBuggySetup(): RootNode {
 
 describe("Buggy setup test", () => {
   it("test finding files", () => {
+<<<<<<< HEAD
      let threwException: boolean = false;
      try {
        let fs: RootNode = createBuggySetup();
@@ -72,5 +83,20 @@ describe("Buggy setup test", () => {
        expect(tx instanceof InvalidStateException).toBe(true);
      }
      expect(threwException).toBe(true);
+=======
+    let threwException: boolean = false;
+    try {
+      let fs: RootNode = createBuggySetup();
+      fs.findNodes("ls");
+    } catch(er) {
+      threwException = true;
+      // let ex: Exception = er as Exception;
+      // expect(ex).toBeInstanceOf(ServiceFailureException);
+      // expect(ex.hasTrigger()).toBe(true);
+      // let tx: Exception = ex.getTrigger();
+      // expect(tx).toBeInstanceOf(InvalidStateException);
+    }
+    expect(threwException).toBe(true);
+>>>>>>> upstream/main
   });
 });

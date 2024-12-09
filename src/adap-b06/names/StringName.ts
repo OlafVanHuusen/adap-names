@@ -35,7 +35,7 @@ export class StringName extends AbstractName {
     }
 
     // @methodtype set-method
-    public setComponent(n: number, c: string): Name {
+    public setComponent(n: number, c: string): StringName {
         this.assertIsNotNullOrUndefined(n);
         this.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
@@ -54,7 +54,7 @@ export class StringName extends AbstractName {
     }
 
     // @methodtype command-method
-    public insert(n: number, c: string): Name {
+    public insert(n: number, c: string): StringName {
         this.assertIsNotNullOrUndefined(n);
         this.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
@@ -73,7 +73,7 @@ export class StringName extends AbstractName {
     }
 
     // @methodtype command-method
-    public append(c: string): Name {
+    public append(c: string): StringName {
         this.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
 
@@ -88,7 +88,7 @@ export class StringName extends AbstractName {
     }
 
     // @methodtype command-method
-    public remove(n: number): Name {
+    public remove(n: number): StringName {
         this.assertIsNotNullOrUndefined(n);
         this.assertValidComponentNumber(n);
 

@@ -38,7 +38,7 @@ export class StringArrayName extends AbstractName {
     }
 
     // @methodtype set-method
-    public setComponent(i: number, c: string): Name {
+    public setComponent(i: number, c: string): StringArrayName {
         this.assertIsNotNullOrUndefined(i);
         this.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
@@ -53,7 +53,7 @@ export class StringArrayName extends AbstractName {
     }
 
     // @methodtype command-method
-    public insert(i: number, c: string): Name {
+    public insert(i: number, c: string): StringArrayName {
         this.assertIsNotNullOrUndefined(i);
         this.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
@@ -71,7 +71,7 @@ export class StringArrayName extends AbstractName {
     }
 
     // @methodtype command-method
-    public append(c: string): Name {
+    public append(c: string): StringArrayName {
         this.assertIsNotNullOrUndefined(c);
         this.assertCorrectEscapedString(c);
 
@@ -87,7 +87,7 @@ export class StringArrayName extends AbstractName {
     }
 
     // @methodtype command-method
-    public remove(i: number): Name {
+    public remove(i: number): StringArrayName {
         this.assertIsNotNullOrUndefined(i);
         this.assertValidComponentNumber(i);
 
